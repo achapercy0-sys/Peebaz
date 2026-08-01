@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
+    <title>Peebaz - Developer Console</title>
+    <style>
+        :root {
+            --bg-primary: #09090b;
+            --bg-secondary: #18181b;
+            --border-color: #27272a;
+            --accent-green: #22c55e;
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-main);
+        }
+
+        .thunderbolt-icon {
+            color: var(--accent-green);
+            fill: var(--accent-green);
+            width: 20px;
+            height: 20px;
+            filter: drop-shadow(0 0 8px var(--accent-green));
+        }
+
+        .screen-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.5);
+        }
+
+        .card h2 {
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-green);
+        }
+
+        .profile-preview-lg {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-green);
+            object-fit: cover;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .file-upload-btn {
+            display: block;
+            text-align: center;
+            padding: 0.75rem;
+            background: var(--bg-primary);
+            border: 1px dashed var(--border-color);
+            border-radius: 8px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .file-upload-btn:hover {
+            border-color: var(--accent-green);
+            color: white;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+
+        .btn-primary {
+            background: white;
+            color: black;
+        }
+
+        .btn-primary:hover {
+            background: #e4e4e7;
+        }
+
+        .btn-bypass {
+            margin-top: 0.75rem;
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--accent-green);
+            border: 1px solid var(--accent-green);
+        }
+
+        .btn-bypass:hover {
+            background: rgba(34, 197, 94, 0.2);
+        }
+
+        .text-link {
+            background: none;
+            border: none;
+            color: var(--accent-green);
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-decoration: underline;
+            padding: 0;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        #dashboard-screen {
+            display: none;
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .dashboard-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .dashboard-card h3 {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-card p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 1.25rem;
+            flex-grow: 1;
+        }
+
+        .card-action-btn {
+            background: var(--bg-primary);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .card-action-btn:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--accent-green);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.80rem;
+            font-weight: 500;
+        }
+
+        .logout-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            color: white;
+            border-color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.5);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .modal-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .code-box {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--accent-green);
+            word-break: break-all;
+            white-space: pre-wrap;
+            margin-bottom: 1.25rem;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .profile-trigger {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--accent-green);
+            cursor: pointer;
+        }
+
+        .profile-trigger img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            margin-top: auto;
+        }
+
+        footer a {
+            color: var(--accent-green);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <svg class="thunderbolt-icon" viewBox="0 0 24 24">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            </svg>
+            <span>Peebaz</span>
+        </div>
+        <div id="user-nav" style="display: none; align-items: center; gap: 1rem;">
+            <div class="profile-trigger" onclick="openProfileModal()">
+                <img id="header-avatar" src="" alt="Profile">
+            </div>
+            <button class="logout-btn" onclick="handleLogout()">Sign Out</button>
+        </div>
+    </header>
+
+    <!-- STEP 1: INITIAL SIGN IN / REGISTRATION SCREEN -->
+    <div id="signin-screen" class="screen-container">
+        <div class="card">
+            <h2>User Profile Setup</h2>
+            <p>Create your profile and 4-digit password.</p>
+            <form id="signin-form" onsubmit="handleSignIn(event)">
+                <div class="form-group" style="text-align: center;">
+                    <img id="preview-img" class="profile-preview-lg" alt="Preview">
+                    <label class="file-upload-btn">
+                        Upload Profile Picture
+                        <input type="file" id="avatar-input" accept="image/*" style="display: none;" onchange="previewImage(event)">
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="signin-name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label>Country</label>
+                    <select id="signin-country" required>
+                        <option value="" disabled selected>Select your country</option>
+                        <option value="Afghanistan">Afghanistan</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Brazil">Brazil</option>
+                        <option value="Cameroon">Cameroon</option>
+                        <option value="Canada">Canada</option>
+                        <option value="China">China</option>
+                        <option value="France">France</option>
+                        <option value="Germany">Germany</option>
+                        <option value="India">India</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Nigeria">Nigeria</option>
+                        <option value="South Africa">South Africa</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="United States">United States</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>4-Digit Password</label>
+                    <input type="password" id="signin-pin" maxlength="4" pattern="\d{4}" placeholder="Enter 4-digit code" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Continue to Subscription</button>
+                <div style="text-align: center;">
+                    <button type="button" class="text-link" onclick="switchView('login')">Already have account? Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-screen" class="screen-container" style="display: none;">
+        <div class="card">
+            <h2>Welcome Back</h2>
+            <p>Login with your 4-digit password.</p>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>4-Digit Password</label>
+                    <input type="password" id="login-pin" maxlength="4" pattern="\d{4}" placeholder="Enter 4-digit PIN" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login to Dashboard</button>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <button type="button" class="text-link" onclick="switchView('signin')">Create Account</button>
+                    <button type="button" class="text-link" onclick="switchView('forgot')">Forgot Password?</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FORGOT PASSWORD SCREEN -->
+    <div id="forgot-screen" class="screen-container" style="display: none;">
+        <div class="card">
+            <h2>Reset Password</h2>
+            <p>Enter your exact name and country to reset your PIN.</p>
+            <form onsubmit="handleResetPassword(event)">
+                <div class="form-group">
+                    <label>Exact Full Name</label>
+                    <input type="text" id="reset-name" placeholder="Enter your exact name" required>
+                </div>
+                <div class="form-group">
+                    <label>Country</label>
+                    <select id="reset-country" required>
+                        <option value="" disabled selected>Select your country</option>
+                        <option value="Afghanistan">Afghanistan</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Brazil">Brazil</option>
+                        <option value="Cameroon">Cameroon</option>
+                        <option value="Canada">Canada</option>
+                        <option value="China">China</option>
+                        <option value="France">France</option>
+                        <option value="Germany">Germany</option>
+                        <option value="India">India</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Nigeria">Nigeria</option>
+                        <option value="South Africa">South Africa</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="United States">United States</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>New 4-Digit Password</label>
+                    <input type="password" id="reset-new-pin" maxlength="4" pattern="\d{4}" placeholder="Enter new 4-digit PIN" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Reset Password</button>
+                <div style="text-align: center;">
+                    <button type="button" class="text-link" onclick="switchView('login')">Back to Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- STEP 2: PAYPAL SUBSCRIPTION & BYPASS SCREEN -->
+    <div id="auth-screen" class="screen-container" style="display: none;">
+        <div class="card" style="max-width: 480px;">
+            <h2>Lifetime Ownership Access</h2>
+            <p>Subscribe for lifetime ownership access to unlock the full dashboard.</p>
+            
+            <div style="margin-bottom: 1.5rem;">
+                <script src="https://www.paypal.com/sdk/js?client-id=BAAqHELdBpTopZAqAENijboETBuRbt3tl2FaFVMIGm0Uy3e0KX6fYgPjnBpbc1pe7c20pHipia4r7-atkM&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
+                <div id="paypal-container-7J5GP6Z9PT2NW"></div>
+                <script>
+                  paypal.HostedButtons({
+                    hostedButtonId: "7J5GP6Z9PT2NW",
+                  }).render("#paypal-container-7J5GP6Z9PT2NW");
+                </script>
+            </div>
+
+            <div class="form-group" style="margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+                <label>Owner Quick Bypass</label>
+                <input type="text" id="bypass-name-input" placeholder="Enter owner name">
+            </div>
+            <button onclick="ownerBypass()" class="btn btn-bypass">⚡ Authenticate Bypass</button>
+        </div>
+    </div>
+
+    <!-- STEP 3: MAIN DASHBOARD -->
+    <div id="dashboard-screen">
+        <div class="dashboard-header">
+            <div>
+                <h1>Project Overview</h1>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">Authenticated Session Active</p>
+            </div>
+            <div class="status-badge">
+                <svg class="thunderbolt-icon" style="width: 12px; height: 12px; filter: none;" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
+                System Secure
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="dashboard-card">
+                <h3>Get API Key & Docs</h3>
+                <p>Generate your production token and code snippets to connect separate websites</p>
+                <button class="card-action-btn" onclick="fetchApiKey()">Get API & Integration Docs</button>
+            </div>
+            <div class="dashboard-card">
+                <h3>Live Synchronization</h3>
+                <p>Monitor real-time data sync status between connected webs</p>
+                <button class="card-action-btn" onclick="openModal('sync')">Live Synchronization</button>
+            </div>
+            <div class="dashboard-card">
+                <h3>PayPal Checkout</h3>
+                <p>Process secure payment transactions</p>
+                <div id="paypal-button-container" style="margin-top: auto;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFILE MODAL -->
+    <div id="profile-modal" class="modal">
+        <div class="modal-content" style="text-align: center;">
+            <img id="modal-avatar" class="profile-preview-lg" style="display: block; margin: 0 auto 1rem auto;" alt="Avatar">
+            <h3 id="modal-name"></h3>
+            <p id="modal-country" style="margin-bottom: 1.5rem;"></p>
+            <div style="background: rgba(34, 197, 94, 0.1); color: var(--accent-green); padding: 0.5rem; border-radius: 6px; font-size: 0.85rem; margin-bottom: 1.5rem;">Access: Active Subscription / Owner</div>
+            <button class="btn btn-primary" onclick="closeProfileModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- ACTION MODAL -->
+    <div id="action-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="modal-title">Service Action</h3>
+            <p id="modal-desc">Processing request...</p>
+            <div id="modal-body"></div>
+            <button class="btn btn-primary" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <footer>
+        Contact support at <a href="tel:+237691623286">+237 691623286</a>
+    </footer>
+
+    <script>
+        const OWNER_KEY = "Percy-Edwin";
+        let userData = {
+            name: "",
+            country: "",
+            pin: "",
+            avatar: ""
+        };
+
+        function checkSession() {
+            const savedUser = localStorage.getItem("peebaz_user_data");
+            const sessionAuth = sessionStorage.getItem("peebaz_auth");
+
+            if (savedUser) {
+                userData = JSON.parse(savedUser);
+                document.getElementById("header-avatar").src = userData.avatar || "https://via.placeholder.com/150";
+            }
+
+            if (sessionAuth === "active") {
+                showDashboard();
+            } else if (savedUser) {
+                switchView('login');
+            } else {
+                switchView('signin');
+            }
+        }
+
+        function switchView(view) {
+            document.getElementById("signin-screen").style.display = "none";
+            document.getElementById("login-screen").style.display = "none";
+            document.getElementById("forgot-screen").style.display = "none";
+            document.getElementById("auth-screen").style.display = "none";
+            document.getElementById("dashboard-screen").style.display = "none";
+
+            if (view === 'signin') {
+                document.getElementById("signin-screen").style.display = "flex";
+            } else if (view === 'login') {
+                document.getElementById("login-screen").style.display = "flex";
+            } else if (view === 'forgot') {
+                document.getElementById("forgot-screen").style.display = "flex";
+            } else if (view === 'auth') {
+                document.getElementById("auth-screen").style.display = "flex";
+                document.getElementById("user-nav").style.display = "flex";
+            }
+        }
+
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const output = document.getElementById('preview-img');
+                output.src = reader.result;
+                output.style.display = 'block';
+                userData.avatar = reader.result;
+            };
+            if(event.target.files[0]) {
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        }
+
+        function handleSignIn(e) {
+            e.preventDefault();
+            userData.name = document.getElementById("signin-name").value.trim();
+            userData.country = document.getElementById("signin-country").value;
+            userData.pin = document.getElementById("signin-pin").value.trim();
+
+            if(!userData.avatar) {
+                userData.avatar = "https://via.placeholder.com/150";
+            }
+
+            localStorage.setItem("peebaz_user_data", JSON.stringify(userData));
+            document.getElementById("header-avatar").src = userData.avatar;
+            switchView('auth');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const inputPin = document.getElementById("login-pin").value.trim();
+            const savedUser = JSON.parse(localStorage.getItem("peebaz_user_data") || "{}");
+
+            if (inputPin === savedUser.pin) {
+                userData = savedUser;
+                document.getElementById("header-avatar").src = userData.avatar || "https://via.placeholder.com/150";
+                sessionStorage.setItem("peebaz_auth", "active");
+                showDashboard();
+            } else {
+                alert("Incorrect 4-digit password. Please try again or use 'Forgot Password?'.");
+            }
+        }
+
+        function handleResetPassword(e) {
+            e.preventDefault();
+            const resetName = document.getElementById("reset-name").value.trim();
+            const resetCountry = document.getElementById("reset-country").value;
+            const newPin = document.getElementById("reset-new-pin").value.trim();
+            const savedUser = JSON.parse(localStorage.getItem("peebaz_user_data") || "{}");
+
+            if (resetName === savedUser.name && resetCountry === savedUser.country) {
+                savedUser.pin = newPin;
+                localStorage.setItem("peebaz_user_data", JSON.stringify(savedUser));
+                userData = savedUser;
+                alert("Password successfully reset! You can now login.");
+                switchView('login');
+            } else {
+                alert("Verification failed: Exact name and country do not match our records.");
+            }
+        }
+
+        function ownerBypass() {
+            const inputVal = document.getElementById("bypass-name-input").value.trim();
+            if (inputVal.toLowerCase() !== OWNER_KEY.toLowerCase()) {
+                alert("Access Denied: Invalid owner credentials. Please complete payment or enter correct owner name.");
+                return;
+            }
+            sessionStorage.setItem("peebaz_auth", "active");
+            showDashboard();
+        }
+
+        function showDashboard() {
+            document.getElementById("signin-screen").style.display = "none";
+            document.getElementById("login-screen").style.display = "none";
+            document.getElementById("forgot-screen").style.display = "none";
+            document.getElementById("auth-screen").style.display = "none";
+            document.getElementById("dashboard-screen").style.display = "block";
+            document.getElementById("user-nav").style.display = "flex";
+            renderPayPalButton();
+        }
+
+        function handleLogout() {
+            sessionStorage.clear();
+            window.location.reload();
+        }
+
+        function openProfileModal() {
+            document.getElementById("modal-avatar").src = userData.avatar;
+            document.getElementById("modal-name").innerText = userData.name || "User";
+            document.getElementById("modal-country").innerText = "Country: " + (userData.country || "Not specified");
+            document.getElementById("profile-modal").style.display = "flex";
+        }
+
+        function closeProfileModal() {
+            document.getElementById("profile-modal").style.display = "none";
+        }
+
+        async function fetchApiKey() {
+            const modal = document.getElementById("action-modal");
+            const title = document.getElementById("modal-title");
+            const desc = document.getElementById("modal-desc");
+            const body = document.getElementById("modal-body");
+            
+            modal.style.display = "flex";
+            title.innerText = "API Key & Cross-Web Integration";
+            desc.innerText = "Generating verified API token from server...";
+            body.innerHTML = `<div class="code-box">Processing...</div>`;
+
+            try {
+                const response = await fetch('/api/generate-key', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: userData.name || "Percy" })
+                });
+                const data = await response.json();
+                if(data.success) {
+                    const key = data.apiKey;
+                    const origin = window.location.origin;
+                    
+                    desc.innerText = "Your API Key and cross-web communication code snippet:";
+                    body.innerHTML = `
+                        <label style="font-size:0.75rem; color:var(--text-muted);">Your API Key:</label>
+                        <div class="code-box">${key}</div>
+                        <label style="font-size:0.75rem; color:var(--text-muted);">Paste this JavaScript snippet into your second website to fetch and sync data:</label>
+                        <div class="code-box">&lt;script&gt;
+  async function fetchExternalData() {
+    const response = await fetch('${origin}/api/v1/data', {
+      method: 'GET',
+      headers: { 'x-api-key': '${key}' }
+    });
+    const result = await response.json();
+    console.log("Data from Web 1:", result);
+  }
+  fetchExternalData();
+&lt;/script&gt;</div>
+                    `;
+                } else {
+                    body.innerHTML = `<div class="code-box" style="color: #ef4444;">Error generating key</div>`;
+                }
+            } catch (err) {
+                body.innerHTML = `<div class="code-box" style="color: #ef4444;">Network connection error</div>`;
+            }
+        }
+
+        function openModal(type) {
+            const modal = document.getElementById("action-modal");
+            const title = document.getElementById("modal-title");
+            const desc = document.getElementById("modal-desc");
+            const body = document.getElementById("modal-body");
+            
+            modal.style.display = "flex";
+
+            if (type === 'sync') {
+                title.innerText = "Live Synchronization Status";
+                desc.innerText = "Real-time bridge status across separate web projects:";
+                body.innerHTML = `<div class="code-box" style="color: var(--accent-green);">Status: Active & Listening<br>Endpoint: /api/v1/data<br>Ready for external cross-web requests.</div>`;
+            }
+        }
+
+        function closeModal() {
+            document.getElementById("action-modal").style.display = "none";
+        }
+
+        function renderPayPalButton() {
+            const container = document.getElementById("paypal-button-container");
+            if (container && !container.hasChildNodes()) {
+                container.innerHTML = `
+                    <button style="width: 100%; background: #0070ba; color: white; border: none; padding: 0.75rem; border-radius: 6px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;" onclick="sessionStorage.setItem('peebaz_auth', 'active'); showDashboard();">
+                        <svg style="height: 16px;" viewBox="0 0 24 24" fill="white"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.022.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.1-.39 2.29-1.59 3.76-3.58 4.42 1.55.51 2.61 1.63 3.01 3.48.5 2.31-.19 4.68-1.85 6.45-1.55 1.63-3.87 2.07-6.9 2.07H9.12a.64.64 0 0 0-.633.538l-1.41 8.93z"/></svg>
+                        Complete Payment via PayPal
+                    </button>
+                `;
+            }
+        }
+
+        window.onload = checkSession;
+    </script>
+=======
+    <title>Peebaz - Live API & Data Sync Hub</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #38bdf8;
+            --accent-hover: #0ea5e9;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --success: #22c55e;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding: 20px; display: flex; justify-content: center; min-height: 100vh; }
+        .container { width: 100%; max-width: 500px; }
+        header { text-align: center; margin-bottom: 24px; }
+        header h1 { color: var(--accent); font-size: 1.8rem; margin-bottom: 6px; }
+        header p { color: var(--text-muted); font-size: 0.9rem; }
+        .card { background-color: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+        .card h2 { font-size: 1.1rem; margin-bottom: 12px; color: var(--text-main); }
+        button { background-color: var(--accent); color: var(--bg-color); border: none; border-radius: 8px; padding: 12px 16px; font-weight: 600; width: 100%; cursor: pointer; }
+        button:hover { background-color: var(--accent-hover); }
+        .output-box { background: #090d16; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-family: monospace; font-size: 0.85rem; color: var(--accent); margin-top: 10px; min-height: 42px; display: flex; align-items: center; word-break: break-all; }
+        .code-snippet { background: #090d16; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-family: monospace; font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; white-space: pre-wrap; word-break: break-all; max-height: 120px; overflow-y: auto; user-select: all; }
+        .input-group { display: flex; gap: 8px; margin-top: 10px; }
+        input { flex: 1; background: #090d16; border: 1px solid var(--border); border-radius: 8px; padding: 10px; color: var(--text-main); outline: none; }
+        input:focus { border-color: var(--accent); }
+        .status-badge { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background-color: #ef4444; margin-right: 6px; }
+        .status-badge.connected { background-color: var(--success); }
+        .status-container { display: flex; align-items: center; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
+        .log-box { background: #090d16; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-family: monospace; font-size: 0.8rem; color: var(--text-muted); height: 100px; overflow-y: auto; margin-top: 10px; }
+        label { font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Peebaz</h1>
+            <p>Live API Generation & Real-Time Sync Hub</p>
+        </header>
+
+        <div class="card">
+            <h2>1. Generate API Key</h2>
+            <button id="generate-btn">Create New API Key</button>
+            <div class="output-box" id="api-key-display">Click button to generate key...</div>
+            
+            <label>Ready-to-use snippet for user websites:</label>
+            <div class="code-snippet" id="snippet-display">&lt;!-- Generate a key to see integration code --&gt;</div>
+        </div>
+
+        <div class="card">
+            <h2>2. Test Live Synchronization</h2>
+            <div class="status-container">
+                <span class="status-badge" id="status-dot"></span>
+                <span id="status-text">Disconnected</span>
+            </div>
+            <div class="input-group">
+                <input type="text" id="auth-key-input" placeholder="Paste API key here...">
+                <button id="connect-btn" style="width: auto;">Connect</button>
+            </div>
+            <div class="input-group" style="margin-top: 12px;">
+                <input type="text" id="payload-input" placeholder="Data payload to broadcast...">
+                <button id="send-btn" style="width: auto;">Send</button>
+            </div>
+            <div class="log-box" id="log-output">Live sync logs will appear here...</div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+>>>>>>> 03f7e34ed6ef9e42d92aeb94523d22c27913d1e5
+</body>
+</html>
