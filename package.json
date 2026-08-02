@@ -1,11 +1,9 @@
 {
   "name": "peebaz",
   "version": "1.0.0",
-<<<<<<< HEAD
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "keywords": [],
@@ -13,15 +11,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "express": "^5.2.1"
-=======
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "express": "^4.19.2",
-    "socket.io": "^4.7.5"
->>>>>>> 03f7e34ed6ef9e42d92aeb94523d22c27913d1e5
+    "express": "^4.19.2"
   }
 }
+
